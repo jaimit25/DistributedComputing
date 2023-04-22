@@ -1,0 +1,13 @@
+Using SHELLSCRIPT
+
+To compile program : bash compile.sh
+
+
+
+
+just run all the commands in powershell
+
+javac Berkley.java
+java Berkley
+
+

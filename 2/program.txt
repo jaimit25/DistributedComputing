@@ -1,0 +1,97 @@
+
+Add all the file to  : mainFolder/rmiadd/
+
+______________________________________________________________________________________________________
+File : Adder.java
+______________________________________________________________________________________________________
+
+
+package rmiadd;
+import java.rmi.*;
+
+public interface Adder extends Remote{
+	public int add(int x,int y)throws RemoteException;  
+}
+
+
+
+______________________________________________________________________________________________________
+File : Client.java
+______________________________________________________________________________________________________
+
+
+// /Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home/lib/jrt-fs.jar
+package rmiadd;
+
+
+import java.net.MalformedURLException;
+import java.rmi.*;
+import rmiadd.Adder;
+
+
+public class Client 
+{
+public static void main(String[] args) throws NotBoundException, MalformedURLException,RemoteException{		
+		Adder service = (Adder) Naming.lookup("rmi://localhost:5099/add");
+		System.out.println("The Output of addition is : "+service.add(1, 2));
+	}
+}
+
+
+______________________________________________________________________________________________________
+File : Servant.java
+______________________________________________________________________________________________________
+
+package rmiadd;
+
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+import rmiadd.Adder;
+
+
+public class Servant extends UnicastRemoteObject implements Adder
+{	
+	Servant() throws RemoteException {
+		super();
+	}
+
+	public int add(int x,int y) throws RemoteException {
+		return x+y;
+	}
+}
+
+
+______________________________________________________________________________________________________
+File : Server.java
+______________________________________________________________________________________________________
+
+package rmiadd;
+
+import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import rmiadd.Adder;
+import rmiadd.Servant;
+
+
+public class Server {
+	
+	public static void main(String[] args) throws RemoteException{
+		System.out.println("Server Started...");
+		Registry registry = LocateRegistry.createRegistry(5099);
+		registry.rebind("add",new Servant());
+	}
+}
+
+
+_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+	TO Execute (Run all Commands on by one)
+_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+
+
+javac rmiadd/Adder.java rmiadd/Servant.java rmiadd/Server.java
+javac rmiadd/Adder.java rmiadd/Client.java
+java rmiadd.Server
+java rmiadd.Client
+

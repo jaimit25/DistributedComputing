@@ -1,0 +1,32 @@
+Using SHELLSCRIPT
+
+To compile program : bash compile.sh
+
+[Use different terminals]
+server start : bash server.sh
+client : bash client.sh
+
+
+
+
+To Compile Server.java(has main Method) file with additional classes(Adder | Servant)
+javac rmiadd/Adder.java rmiadd/Servant.java rmiadd/Server.java
+
+To Compile Client.java(has main Method) file with additional classes(Adder)
+javac rmiadd/Adder.java rmiadd/Client.java
+
+STEP 1 -> To Start the Server
+command : java clientserver.IPCServer
+
+STEP 2 -> To Start the Client
+command : java clientserver.IPCClient
+
+
+To DEBUG ERROR or Run in powershell(Windows OS) : 
+
+just run all the commands in powershell
+javac clientserver/IPCClient.java
+javac clientserver/IPCServer.java
+java rmiadd.IPCServer
+java rmiadd.IPCClient
+

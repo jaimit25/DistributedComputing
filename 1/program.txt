@@ -1,0 +1,94 @@
+
+Add all the file to  : mainFolder/clientserver/
+
+______________________________________________________________________________________________________
+File : IPCClient.java
+______________________________________________________________________________________________________
+
+package clientserver;
+import java.io.*;
+import java.net.*;
+
+class IPCClient {
+    public static void main(String args[]) {
+
+        try {
+            Socket s = new Socket("localhost", 1200);
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+
+            System.out.println(" \n \t******* CLIENT PROCESS STARTED ******* ");
+
+            System.out.println(" \n ******* PLEASE ENTER THE VALUES OF Number 1 AND Number 2 TO PASS THEM TO SERVER PROCESS ******* \n");
+            InputStreamReader isr = new InputStreamReader(System.in);
+            BufferedReader br = new BufferedReader(isr);
+            int a = Integer.parseInt(br.readLine());
+            System.out.println("Number 1 ------>" + a);
+            dos.writeInt(+a);
+
+            int b = Integer.parseInt(br.readLine());
+            System.out.println("Number 2 ------>" + b);
+            dos.writeInt(+b);
+            int result = dis.readInt();
+            System.out.println("\n.......CLIENT PROCESS HAS RECIEVED RESULT FROM SERVER.......\n");
+            System.out.println("\n THE ADDITION OF " + a + " AND " + b + " IS" + result);
+            s.close();
+        } catch (Exception e) {
+            System.out.println("Exception is " + e);
+        }
+    }
+}
+
+
+______________________________________________________________________________________________________
+File : IPCServer.java
+______________________________________________________________________________________________________
+
+
+
+package clientserver;
+
+
+import java.io.*;
+import java.net.*;
+public class IPCServer {
+    public static void main(String args[]) {
+
+        System.out.println("\n **** INTERPROCESS COMMUNICATION ****\n");
+        System.out.println("\n *** SERVER PROCESS STARTED ***\n");
+        System.out.println("\n * SERVER IS READY AND WAITING TO RECIEVE DATA FROM CLIENT PROCESS ON PORT " + 1200);
+        try {
+            ServerSocket ss = new ServerSocket(1200);
+            Socket clientSocket = ss.accept();
+            System.out.println("\n * Client is connected with IP address " + clientSocket.getInetAddress() + "and port number " + clientSocket.getPort());
+            DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+            int a = dis.readInt();
+            System.out.println("\n SERVER RECEIVED");
+            System.out.println("\n Number 1 ------>" + a);
+            int b = dis.readInt();
+            System.out.println("\n Number 2 ------>" + b);
+            int c = a + b;
+            dos.writeInt(c);
+            System.out.println("\n SERVER PROCESS HAS EXECUTED REQUESTED PROCESS AND SENT RESULT " + c + " TO THE CLIENT \n");
+            clientSocket.close();
+            System.out.println("\n SERVER PROCESS EXITING.............");
+            ss.close();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+}
+
+
+_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+	TO Execute (Run all Commands on by one)
+_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+
+
+javac clientserver/IPCClient.java
+javac clientserver/IPCServer.java
+java clientserver.IPCClient
+java clientserver.IPCServer
+

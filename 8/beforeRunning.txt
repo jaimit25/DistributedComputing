@@ -1,0 +1,8 @@
+#Using SHELLSCRIPT
+To compile program : bash compile.sh
+
+#INCASE OF ERROR OR RUNNING ON WINDOWS: Just run all the commands in [powershell]
+javac LoadBalancer.java
+java LoadBalancer
+
+
