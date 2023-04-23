@@ -85,9 +85,10 @@ public class Berkley {
 
         Berkley b = new Berkley();
         Date date = new Date();
-        BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
+        // BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter number of nodes:");
-        int n = Integer.parseInt(obj.readLine());
+        int n = sc.nextInt();
         int h = date.getHours();
 
         int m = date.getMinutes();
@@ -98,11 +99,11 @@ public class Berkley {
 
         for (int i = 0; i < n; i++) {
             System.out.println("ENTER TIME FOR NODES " + (i + 1) + "\n Hours:");
-            nh[i] = Integer.parseInt(obj.readLine());
+            nh[i] = sc.nextInt();
             System.out.println("Minutes:");
-            nm[i] = Integer.parseInt(obj.readLine());
+            nm[i] = sc.nextInt();
             System.out.println("Seconds:");
-            ns[i] = Integer.parseInt(obj.readLine());
+            ns[i] = sc.nextInt();
         }
 
         for (int i = 0; i < n; i++) {

@@ -13,5 +13,5 @@ public class Client
 public static void main(String[] args) throws NotBoundException, MalformedURLException,RemoteException{		
 		Adder service = (Adder) Naming.lookup("rmi://localhost:5099/add");
 		System.out.println("The Output of addition is : "+service.add(1, 2));
-	}
+	}l
 }
