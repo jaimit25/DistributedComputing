@@ -1,6 +1,7 @@
 package clientserver;
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 class IPCClient {
     public static void main(String args[]) {
@@ -14,13 +15,14 @@ class IPCClient {
             System.out.println(" \n \t******* CLIENT PROCESS STARTED ******* ");
 
             System.out.println(" \n ******* PLEASE ENTER THE VALUES OF Number 1 AND Number 2 TO PASS THEM TO SERVER PROCESS ******* \n");
-            InputStreamReader isr = new InputStreamReader(System.in);
-            BufferedReader br = new BufferedReader(isr);
-            int a = Integer.parseInt(br.readLine());
+            
+            Scanner sc = new Scanner(System.in);
+            // int a = Integer.parseInt(br.readLine());
+            int a = sc.nextInt();
             System.out.println("Number 1 ------>" + a);
             dos.writeInt(+a);
 
-            int b = Integer.parseInt(br.readLine());
+            int b = sc.nextInt();
             System.out.println("Number 2 ------>" + b);
             dos.writeInt(+b);
             int result = dis.readInt();
